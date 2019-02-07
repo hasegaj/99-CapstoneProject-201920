@@ -265,10 +265,8 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
         self.motor.turn_on(-100)
-        while True:
-            if self.motor.get_position() <= 2*360:
-                self.motor.turn_off()
-                break
+        
+
         # self.motor.turn_on(-100)
         # recent_posotion = self.motor.get_position()
         # while True:
