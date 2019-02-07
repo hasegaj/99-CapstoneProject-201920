@@ -14,7 +14,7 @@ import ev3dev.ev3 as ev3
 import time
 import math
 
- 
+
 ###############################################################################
 #    RoseBot class.
 #
@@ -267,7 +267,7 @@ class ArmAndClaw(object):
         self.motor.turn_on(-100)
         recent_posotion = self.motor.get_position()
         while True:
-            if abs(self.motor.get_position()) >= 14.2*360 - recent_posotion:
+            if  self.motor.get_position() <= 0:
                 self.motor.turn_off()
                 self.motor.reset_position()
                 break
