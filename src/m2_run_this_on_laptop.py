@@ -14,6 +14,7 @@ import shared_gui
 
 
 def main():
+
     """
     This code, which must run on a LAPTOP:
       1. Constructs a GUI for my part of the Capstone Project.
@@ -22,6 +23,8 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
+
+
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
 
@@ -35,17 +38,17 @@ def main():
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief="groove")
-    main_frame.grid()
+
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame,arm_frame,control_frame = get_shared_frames(main_frame,mqtt_sender)
+    main_frame.grid()
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # done: Implement and call get_my_frames(...)
-
+    teleop_frame, arm_frame, control_frame = get_shared_frames(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
