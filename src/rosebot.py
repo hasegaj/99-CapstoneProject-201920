@@ -116,6 +116,15 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        original = self.left_motor.get_position()
+        while True:
+            left = self.left_motor.get_position()
+            if (left - original)*math.pi*1.3 >= inches:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
