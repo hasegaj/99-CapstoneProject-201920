@@ -156,6 +156,7 @@ def get_control_frame(window, mqtt_sender):
 ###############################################################################
 # Handlers for Buttons in the Teleoperation frame.
 ###############################################################################
+
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
@@ -175,6 +176,8 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
+    print("backward", left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("backward", [-left_entry_box.get(), -right_entry_box.get()])
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -184,7 +187,8 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-
+    print("left", left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("left", [-left_entry_box.get(), right_entry_box.get()])
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -194,14 +198,16 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-
+    print("right", left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("right", [left_entry_box.get(), -right_entry_box.get()])
 
 def handle_stop(mqtt_sender):
     """
     Tells the robot to stop.
       :type  mqtt_sender:  com.MqttClient
     """
-
+    print("Stop")
+    mqtt_sender.send_message("Stop")
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
@@ -211,6 +217,7 @@ def handle_raise_arm(mqtt_sender):
     Tells the robot to raise its Arm until its touch sensor is pressed.
       :type  mqtt_sender:  com.MqttClient
     """
+    mqtt_sender.send_message()
 
 
 def handle_lower_arm(mqtt_sender):
