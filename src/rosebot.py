@@ -134,50 +134,87 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
-
     def go_straight_until_intensity_is_less_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.ColorSensor()
+            if sensor.reflected_light_intensity <= intensity:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.ColorSensor()
+            if sensor.reflected_light_intensity >= intensity:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_until_color_is(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is equal to the given color.
-
-        Colors can be integers from 0 to 7 or any of the strings
-        listed in the ColorSensor class.
-
-        If the color is an integer (int), then use the  get_color   method
-        to access the color sensor's color.  If the color is a string (str),
-        then use the   get_color_as_name   method to access
-        the color sensor's color.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.ColorSensor()
+            num = int(sensor.color)
+            if num == color:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is NOT equal to the given color.
-
-        Colors can be integers from 0 to 7 or any of the strings
-        listed in the ColorSensor class.
         """
 
-    # -------------------------------------------------------------------------
-    # Methods for driving that use the infrared proximity sensor.
-    # -------------------------------------------------------------------------
+        # -------------------------------------------------------------------------
+        # Methods for driving that use the infrared proximity sensor.
+        # -------------------------------------------------------------------------
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.ColorSensor()
+            num = int(sensor.color)
+            if num != color:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
+
     def go_forward_until_distance_is_less_than(self, inches, speed):
         """
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.InfraredSensor()
+            num = int(sensor.proximity) * 0.7
+            if num <= inches * 2.54:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -185,17 +222,47 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.InfraredSensor()
+            num = int(sensor.proximity) * 0.7
+            if num >= inches * 2.54:
+                print('OK')
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
-    def go_until_distance_is_within(self, delta, inches, speed):
+    def go_until_distance_is_within(self, delta_inches, speed):
         """
         Goes forward or backward, repeated as necessary, until the robot is
-        within the given delta of the given inches from the nearest object
-        that it senses.  Assumes that it senses an object when it starts.
-
-        For example, if delta is 0.3 and inches is 7.1, then
-        the robot should move until it is between 6.8 and 7.4 inches
-        from the object.
+        within the given delt
         """
+        sensor = ev3.InfraredSensor()
+        num = int(sensor.proximity) * 0.7
+        inches =delta_inches
+        if num >= delta_inches * 2.54:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+            while True:
+                sensor = ev3.InfraredSensor()
+                num = int(sensor.proximity) * 0.7
+                if num <= inches * 2.54:
+                    print('OK')
+                    break
+            self.left_motor.turn_off()
+            self.right_motor.turn_off()
+        if num <= delta_inches * 2.54:
+            self.left_motor.turn_on(speed)
+            self.right_motor.turn_on(speed)
+            while True:
+                sensor = ev3.InfraredSensor()
+                num = int(sensor.proximity) * 0.7
+                if num >= inches * 2.54:
+                    print('OK')
+                    break
+            self.left_motor.turn_off()
+            self.right_motor.turn_off()
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
