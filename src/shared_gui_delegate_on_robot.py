@@ -13,3 +13,10 @@ class Reciver(object):
     def forward(self, left_wheel_speed, right_wheel_speed):
         print('GO forward',left_wheel_speed, right_wheel_speed)
         self.robot.drive_systems.go(int(left_wheel_speed),int(right_wheel_speed))
+    def quit(self):
+        print('got quit')
+        self.is_time_to_stop = True
+    def beep(self, n):
+        print('got beep')
+        for _ in range(int(n)):
+            self.robot.sound_system.beeper.beep().wait()
