@@ -6,12 +6,10 @@
     and Josiah Hasegawa, Zeyu Liao, Yifan Dai.
   Winter term, 2018-2019.
 """
-
-class Receiver(object):
+class Reciver(object):
     def __init__(self, robot):
+        'Type hint: robot: rosebot.RoseBot'
         self.robot = robot
-
-        def forward(self, left_wheel_speed, right_wheel_speed):
-            print("God foward", left_wheel_speed, right_wheel_speed)
-            self.robot.drive_system.go(int(left_wheel_speed),
-                                       int(right_wheel_speed))
+    def forward(self, left_wheel_speed, right_wheel_speed):
+        print('GO forward',left_wheel_speed, right_wheel_speed)
+        self.robot.drive_systems.go(int(left_wheel_speed),int(right_wheel_speed))
