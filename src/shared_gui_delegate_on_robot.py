@@ -3,7 +3,7 @@
   This code is the delegate for handling messages from the shared GUI.
 
   Author:  Your professors (for the framework)
-    and Josiah Hasegawa, Zeyu Liao, Yifan Dai.
+    and Josiah Hasegawa, Zeyu Liao, Yifan Dai. hellow
   Winter term, 2018-2019.1
 """
 class Reciver(object):
