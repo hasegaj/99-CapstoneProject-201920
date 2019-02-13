@@ -399,7 +399,7 @@ def handle_go_straight_for_inches_using_encoder(inches,speed, mqtt_sender):
     print('go_straight_for_inches_using_encoder')
     mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches.get(), speed.get()])
 
-def handle_beep_for_n_times(n,mqtt_sender):
+def handle_beep(n,mqtt_sender):
     ""
     print('beep_for_n_times',n.get())
     mqtt_sender.send_message('beep_N', [n.get()])
