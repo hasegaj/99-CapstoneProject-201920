@@ -80,6 +80,7 @@ class DriveSystem(object):
         """ Makes the left and right wheel motors spin at the given speeds. """
         self.left_motor.turn_on(left_wheel_speed)
         self.right_motor.turn_on(right_wheel_speed)
+
     def stop(self):
         """ Stops the left and right wheel motors. """
         self.left_motor.turn_off()
@@ -115,6 +116,7 @@ class DriveSystem(object):
                 break
         self.left_motor.turn_off()
         self.right_motor.turn_off()
+
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -420,6 +422,17 @@ class SoundSystem(object):
         self.speech_maker = SpeechMaker()
         self.song_maker = SongMaker()
 
+    def beep_for_n_times(self, n):
+        for k in range(n):
+            self.beeper.beep()
+            
+    def beep_at_tone(self, tone, frequency):
+        play_tone = ToneMaker()
+        play_tone.play_tone(frequency, tone)
+
+    def speak_phrase(self, word):
+        speaker = SpeechMaker()
+        speaker.speak(word)
 
 ###############################################################################
 #    LEDSystem
@@ -839,6 +852,8 @@ class Beeper(object):
         """
         return self._beeper.beep()
 
+    def stop_the_beep(self):
+        self._beeper.beep().terminate()
 
 ###############################################################################
 # ToneMaker
