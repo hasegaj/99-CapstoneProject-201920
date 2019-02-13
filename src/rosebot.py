@@ -433,7 +433,8 @@ class SoundSystem(object):
 
     def beep_for_n_times(self, n):
         num = int(n)
-        self.beeper.beep().wait()
+        for k in range(num):
+            self.beeper.beep().wait()
 
     def beep_at_tone(self, tone, frequency):
         play_tone = ToneMaker()

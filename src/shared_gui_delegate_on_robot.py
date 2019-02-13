@@ -70,10 +70,10 @@ class Reciver(object):
         print('got quit')
         self.is_time_to_stop = True
 
-    def beep(self, n):
+    def beep_N(self, n):
         print('Beep')
         N = int(n)
-        self.beep(N)
+        self.robot.sound_system.beep_for_n_times(N)
 
     def play_a_tone_for_a_givien_frenquency(self, freq, dur):
         print('play tone')
