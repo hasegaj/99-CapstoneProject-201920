@@ -318,7 +318,7 @@ class DriveSystem(object):
         pixy.value(4)  # Height, int value 0 to 200
         Object = (pixy.value(1), pixy.value(2))
         if pixy.value(1) < 0:
-            self.spin_clockwise_until_sees_object(speed, area)
+            self.spin_counterclockwise_until_sees_object(speed, area)
 
 
 ###############################################################################
