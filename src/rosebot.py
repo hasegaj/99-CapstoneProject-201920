@@ -310,18 +310,21 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-        pixy = ev3.Sensor(driver_name="pixy-lego")
-        pixy.mode = "SIG1"
-        pixy.value(1)  # X, int value 0 to 319 (320 pixels wide)
-        pixy.value(2)  # Y, int value 0 to 199 (200 pixels wide)
-        pixy.value(3)  # Width, int value 0 to 320
-        pixy.value(4)  # Height, int value 0 to 200
-        Object = (pixy.value(1), pixy.value(2))
-        if pixy.value(1) < 0:
-            self.spin_counterclockwise_until_sees_object(speed, area)
+        self.go(self, -int(speed.get()), int(speed.get()))
+        pixy = self.sensor_system.camera
+        area.get()
+        while True:
+            blob = pixy.get_biggest_blob()
+            Area = blob.width * blob.height
+            if Area > 500:
+                self.stop()
+                break
 
 
-###############################################################################
+
+
+
+        ###############################################################################
 #    ArmAndClawv
 ###############################################################################
 class ArmAndClaw(object):
