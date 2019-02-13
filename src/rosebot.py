@@ -322,7 +322,7 @@ class DriveSystem(object):
 
 
 ###############################################################################
-#    ArmAndClaw
+#    ArmAndClawv
 ###############################################################################
 class ArmAndClaw(object):
     """ Controls the robot's arm and claw (which operate together). """
