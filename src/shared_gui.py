@@ -13,7 +13,6 @@
     and Yifan Dai, Zeyu Liao Josiah Hasegawa
   Winter term, 2018-2019.
 """
-
 import tkinter
 from tkinter import ttk
 import time
@@ -238,11 +237,15 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_label = ttk.Label(frame, text="What do you want to say?")
     Phase_entry = ttk.Entry(frame, width=20, justify=tkinter.LEFT)
     Phase_entry.insert(0, "Hey Jarvis")
+    speed_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
+    speed_entry.grid(row=2, column=0, sticky='w')
+    second_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
+    second_entry.grid(row=4, column=0, sticky='w')
 
     beeper_button = ttk.Button(frame, text="Beep!")
     Tone_button = ttk.Button(frame, text="Make a Tone!")
     Phase_button = ttk.Button(frame, text='Make it!')
-
+    Move_tone  = ttk.Button(frame, text='Move tone!')
 
     #
     frame_label.grid(row=0, column=1)
@@ -260,6 +263,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_label.grid(row=9, column=0,sticky='w')
     Phase_entry.grid(row=10, column=0,sticky='w')
     Phase_button.grid(row=10, column=2)
+    Move_tone.grid(row=10, column=2)
 
 
 
@@ -267,7 +271,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
     Tone_button["command"] = lambda: handle_tone(F_entry,D_entry,mqtt_sender)
     Phase_button["command"] = lambda: say_a_pharse(Phase_entry, mqtt_sender)
-
+    Move_tone["command"] = lambda: handle_tone_move(second_entry, speed_entry,F_entry,D_entry,mqtt_sender)
     return frame
 
 
@@ -407,7 +411,7 @@ def handle_beep(n,mqtt_sender):
 def handle_tone(fren,dur, mqtt_sender):
     ""
     print('play_a_tone_for_a_givien_frenquency')
-    mqtt_sender.send_message('play_a_tone_for_a_givien_frenquency', [fren.get(),dur.get()])
+    mqtt_sender.send_message('play_a_tone', [fren.get(),dur.get()])
 
 def say_a_pharse(x, mqtt_sender):
     ""
@@ -431,3 +435,6 @@ def handle_exit(mqtt_sender):
     print('Exit')
     handle_quit(mqtt_sender)
     exit()
+def handle_tone_move(seconds,speed, fren, dur, mqtt_sender):
+    print('M+T')
+    mqtt_sender.send_message('tone_move',[seconds.get(), speed.get(),fren.get(),dur.get()])

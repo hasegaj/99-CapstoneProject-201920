@@ -6,6 +6,8 @@
     and Josiah Hasegawa, Zeyu Liao, Yifan Dai. hellow
   Winter term, 2018-2019.1
 """
+from threading import Thread
+import time
 class Reciver(object):
     def __init__(self, robot):
         'Type hint: robot: rosebot.RoseBot'
@@ -75,10 +77,23 @@ class Reciver(object):
         N = int(n)
         self.robot.sound_system.beep_for_n_times(N)
 
-    def play_a_tone_for_a_givien_frenquency(self, freq, dur):
+    def play_a_tone(self, freq, dur):
         print('play tone')
-        self.robot.sound_system.play_a_tone_for_a_givien_frenquency(int(freq), int(dur))
+        self.robot.sound_system.beep_at_tone(int(freq), int(dur))
 
     def speaker(self, x):
-        self.robot.sound_system.say_a_phrase(str(x))
+        self.robot.sound_system.speak_phrase(str(x))
+
+    def tone_move(self,seconds,speed, freq, dur, distance):
+        now = time.time()
+        A = Thread(target= self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed)))
+        B = Thread(target= self.robot.sound_system.beep_at_tone(int(freq), int(dur)))
+        while True:
+            A.start()
+            if time.time() - now> distance:
+                B.start()
+                now = time.time()
+
+
+
 

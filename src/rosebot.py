@@ -430,7 +430,7 @@ class SoundSystem(object):
         self.tone_maker = ToneMaker()
         self.speech_maker = SpeechMaker()
         self.song_maker = SongMaker()
-        self.drive_system = DriveSystem()
+
     def beep_for_n_times(self, n):
         num = int(n)
         for k in range(num):
