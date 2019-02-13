@@ -10,7 +10,7 @@
     -- Lower-level code to interact with the EV3 robot library.
 
   Author:  Your professors (for the framework and lower-level code)
-    and PUT_YOUR_NAMES_HERE.
+    and Yifan Dai, Zeyu Liao Josiah Hasegawa
   Winter term, 2018-2019.
 """
 
@@ -146,6 +146,133 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
+def get_drivesystem_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="DriveSystem")
+
+    speed_label = ttk.Label(frame, text="Enter the speed",anchor=tkinter.W,justify=tkinter.LEFT)
+    speed_entry = ttk.Entry(frame, width=8,justify=tkinter.LEFT)
+    speed_entry.insert(0, "100")
+
+    second_label = ttk.Label(frame, text="How many seconds do you want to go",anchor=tkinter.W,justify=tkinter.LEFT)
+    second_entry = ttk.Entry(frame, width=8,justify=tkinter.LEFT)
+    second_entry.insert(0, "10")
+
+    inches_label = ttk.Label(frame, text="How many inches do you want to go",anchor=tkinter.W,justify=tkinter.LEFT)
+    inches_entry = ttk.Entry(frame, width=8,justify=tkinter.LEFT)
+    inches_entry.insert(0, "10")
+
+    encoder_label = ttk.Label(frame, text="How many inches do you want to go(by using encoder)",anchor=tkinter.W,justify=tkinter.LEFT)
+    encoder_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
+    encoder_entry.insert(0, "10")
+
+    second_button = ttk.Button(frame, text="Go for seconds")
+    inches_button = ttk.Button(frame, text="Go for inches")
+    encoder_button = ttk.Button(frame, text='Go for inches(encoder)')
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1,sticky='w')
+
+    speed_label.grid(row=1, column=0,sticky='w')
+    speed_entry.grid(row=2, column=0,sticky='w')
+
+    second_label.grid(row=3, column=0,sticky='w')
+    second_entry.grid(row=4, column=0,sticky='w')
+    second_button.grid(row=4, column=2)
+
+    inches_label.grid(row=5, column=0,sticky='w')
+    inches_entry.grid(row=6, column=0,sticky='w')
+    inches_button.grid(row=6, column=2)
+
+    encoder_label.grid(row=7, column=0,sticky='w')
+    encoder_entry.grid(row=8, column=0,sticky='w')
+    encoder_button.grid(row=8, column=2)
+
+    # Set the button callbacks:
+    second_button["command"] = lambda: handle_go_straight_for_seconds(second_entry, speed_entry, mqtt_sender)
+    inches_button["command"] = lambda: handle_go_straight_for_inches_using_time(inches_entry, speed_entry,mqtt_sender)
+    encoder_button["command"] = lambda: handle_go_straight_for_inches_using_encoder(encoder_entry, speed_entry,
+                                                                                    mqtt_sender)
+
+    return frame
+
+def get_soundsystem_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="SoundSystem")
+
+    beeper_label = ttk.Label(frame, text="Beep Times?")
+    beeper_entry = ttk.Entry(frame, width=8)
+    beeper_entry.insert(0, "10")
+
+    F_label = ttk.Label(frame, text="Freqeuncy?")
+    F_entry = ttk.Entry(frame, width=8)
+    F_entry.insert(0, "1000")
+
+    D_label = ttk.Label(frame, text="Durance?")
+    D_entry = ttk.Entry(frame, width=8)
+    D_entry.insert(0, "10")
+
+    Phase_label = ttk.Label(frame, text="What do you want to say?")
+    Phase_entry = ttk.Entry(frame, width=20, justify=tkinter.LEFT)
+    Phase_entry.insert(0, "Hey Jarvis")
+
+    beeper_button = ttk.Button(frame, text="Beep!")
+    Tone_button = ttk.Button(frame, text="Make a Tone!")
+    Phase_button = ttk.Button(frame, text='Make it!')
+
+
+    #
+    frame_label.grid(row=0, column=1)
+
+    beeper_label.grid(row=1, column=0,sticky='w')
+    beeper_entry.grid(row=2, column=0,sticky='w')
+    beeper_button.grid(row=2,column=2)
+
+    F_label.grid(row=4, column=0,sticky='w')
+    F_entry.grid(row=5, column=0,sticky='w')
+    D_label.grid(row=6, column=0,sticky='w')
+    D_entry.grid(row=7, column=0,sticky='w')
+    Tone_button.grid(row=7, column=2)
+
+    Phase_label.grid(row=9, column=0,sticky='w')
+    Phase_entry.grid(row=10, column=0,sticky='w')
+    Phase_button.grid(row=10, column=2)
+
+
+
+    # Set the button callbacks:
+    beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
+    Tone_button["command"] = lambda: handle_tone(F_entry,D_entry,mqtt_sender)
+    Phase_button["command"] = lambda: say_a_pharse(Phase_entry, mqtt_sender)
+
+    return frame
+
+
+
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -188,7 +315,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
     print("left", left_entry_box.get(), right_entry_box.get())
-    mqtt_sender.send_message("left", [-left_entry_box.get(), right_entry_box.get()])
+    mqtt_sender.send_message("left", [left_entry_box.get(), right_entry_box.get()])
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -199,7 +326,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
     print("right", left_entry_box.get(), right_entry_box.get())
-    mqtt_sender.send_message("right", [left_entry_box.get(), -right_entry_box.get()])
+    mqtt_sender.send_message("right", [left_entry_box.get(), right_entry_box.get()])
 
 def handle_stop(mqtt_sender):
     """
@@ -207,7 +334,7 @@ def handle_stop(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print("Stop")
-    mqtt_sender.send_message("Stop")
+    mqtt_sender.send_message("stop")
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
@@ -237,7 +364,7 @@ def handle_calibrate_arm(mqtt_sender):
     all the way down, and then to mark taht position as position 0.
       :type  mqtt_sender:  com.MqttClient
     """
-    print("calibrate_arm")
+    print("calibrate_arm1")
     mqtt_sender.send_message("calibrate_arm")
 
 
@@ -248,13 +375,44 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
       :type  arm_position_entry  ttk.Entry
       :type  mqtt_sender:        com.MqttClient
     """
-    print("calibrate_arm")
+    print("move_arm_to_position")
     mqtt_sender.send_message("move_arm_to_position",[arm_position_entry.get()])
+
+
 
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
 ###############################################################################
+def handle_go_straight_for_seconds(seconds,speed, mqtt_sender):
+    ""
+    print('go straight for seconds')
+    mqtt_sender.send_message('go_straight_for_seconds', [seconds.get(), speed.get()])
+
+def handle_go_straight_for_inches_using_time(inches,speed, mqtt_sender):
+    ""
+    print('go straight for inches using time')
+    mqtt_sender.send_message('go_straight_for_inches_using_time', [inches.get(),speed.get()])
+
+def handle_go_straight_for_inches_using_encoder(inches,speed, mqtt_sender):
+    ""
+    print('go_straight_for_inches_using_encoder')
+    mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches.get(), speed.get()])
+
+def handle_beep(n,mqtt_sender):
+    ""
+    print('beep',n.get())
+    mqtt_sender.send_message('beep', [n.get()])
+
+def handle_tone(fren,dur, mqtt_sender):
+    ""
+    print('play_a_tone_for_a_givien_frenquency')
+    mqtt_sender.send_message('play_a_tone_for_a_givien_frenquency', [fren.get(),dur.get()])
+
+def say_a_pharse(x, mqtt_sender):
+    ""
+    print('say_a_phrase')
+    mqtt_sender.send_message('speaker', [x.get()])
 def handle_quit(mqtt_sender):
     """
     Tell the robot's program to stop its loop (and hence quit).

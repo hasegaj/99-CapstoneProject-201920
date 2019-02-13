@@ -24,7 +24,7 @@ class Reciver(object):
         self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
 
     def calibrate_arm(self):
-        print('Calibrate arm')
+        print('Calibrate arm 2')
         self.robot.arm_and_claw.calibrate_arm()
 
     def raise_arm(self):
@@ -41,11 +41,15 @@ class Reciver(object):
 
     def left(self, left_wheel_speed, right_wheel_speed):
         print('Left', left_wheel_speed, right_wheel_speed)
-        self.robot.drive_system.left(int(left_wheel_speed),int(right_wheel_speed))
+        Left = int(left_wheel_speed)
+        Right = int(right_wheel_speed)
+        self.robot.drive_system.go(-Left, Right)
 
     def right(self, left_wheel_speed, right_wheel_speed):
         print('Right', left_wheel_speed, right_wheel_speed)
-        self.robot.drive_system.right(int(left_wheel_speed),int(right_wheel_speed))
+        Left = int(left_wheel_speed)
+        Right = int(right_wheel_speed)
+        self.robot.drive_system.go(Left, -Right)
 
     def go_straight_for_seconds(self, seconds, speed):
         print('GO straight for second', seconds, speed)
@@ -57,7 +61,9 @@ class Reciver(object):
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         print('GO straight for inches encoder', inches, speed)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
+        inc = int(inches)
+        spe = int(speed)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inc, spe)
 
 
     def quit(self):
