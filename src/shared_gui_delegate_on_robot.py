@@ -81,3 +81,4 @@ class Reciver(object):
 
     def speaker(self, x):
         self.robot.sound_system.say_a_phrase(str(x))
+
