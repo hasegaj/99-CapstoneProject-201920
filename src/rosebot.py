@@ -174,7 +174,7 @@ class DriveSystem(object):
         while True:
             sensor = ev3.ColorSensor()
             num = int(sensor.color)
-            if num <= color:
+            if num == color:
                 print('OK')
                 break
         self.left_motor.turn_off()
