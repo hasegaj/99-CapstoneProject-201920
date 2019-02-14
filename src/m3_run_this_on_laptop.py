@@ -49,7 +49,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame, sensor_system)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -63,14 +63,16 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_fram = shared_gui.get_control_frame(main_frame,mqtt_sender)
     sound_frame = shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
     drive_frame = shared_gui.get_drivesystem_frame(main_frame,mqtt_sender)
-    return teleop_frame, arm_frame, control_fram, sound_frame, drive_frame
+    sensor_frame = shared_gui.get_soundsystem_frame(main_frame, mqtt_sender)
+    return teleop_frame, arm_frame, control_fram, sound_frame, drive_frame, sensor_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame, sensor_frame):
     teleop_frame.grid(row = 0, column = 0)
     arm_frame.grid(row = 0, column = 1)
     control_frame.grid(row = 1, column = 1)
     sound_frame.grid(row = 3, column = 0)
     drive_frame.grid(row = 3, column = 1)
+    sensor_frame.grid(row = 4, column = 1)
 
 
 

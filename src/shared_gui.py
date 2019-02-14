@@ -16,6 +16,7 @@
 import tkinter
 from tkinter import ttk
 import time
+import rosebot
 
 
 def get_teleoperation_frame(window, mqtt_sender):
@@ -273,6 +274,11 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_button["command"] = lambda: say_a_pharse(Phase_entry, mqtt_sender)
     Move_tone["command"] = lambda: handle_tone_move(second_entry, speed_entry,F_entry,D_entry,mqtt_sender)
     return frame
+
+
+
+
+
 
 
 
