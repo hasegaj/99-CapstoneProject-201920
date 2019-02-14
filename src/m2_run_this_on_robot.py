@@ -9,7 +9,6 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot as rec
-import shared_gui
 
 def main():
     """
@@ -18,6 +17,8 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
+    # something()
+    # raise_arm()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -27,10 +28,16 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        if delegate.is_time_to_stop:
-            break
 
 
+# def something():
+#     robot= rosebot.RoseBot()
+#     robot.arm_and_claw.calibrate_arm()
+#     robot.drive_system.Toone_move()
+#
+# def raise_arm():
+#     robot = rosebot.RoseBot()
+#     robot.drive_system.Toone_move()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

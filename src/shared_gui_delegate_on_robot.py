@@ -83,16 +83,10 @@ class Reciver(object):
     def speaker(self, x):
         self.robot.sound_system.speak_phrase(str(x))
 
-    def liao_tone_move(self,seconds,speed, freq, dur, distance):
-        frequcence = freq
-        while True:
-            self.robot.drive_system.go_straight_for_seconds(int(speed),int(seconds))
-            self.robot.sound_system.beep_at_tone(int(freq), int(dur))
-            frequcence = frequcence + 50
-            if distance <= 1:
-                break
-        self.robot.drive_system.stop()
-        self.stop()
+    def tone_move(self,seconds,speed, freq, dur):
+        self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.Toone_move(float(seconds),int(speed), int(freq), int(dur))
+        self.robot.arm_and_claw.raise_arm()
 
     def until_color(self,speed,color):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))

@@ -43,7 +43,6 @@ class RoseBot(object):
 #    DriveSystem
 ###############################################################################
 class DriveSystem(object):
-
     """
     Controls the robot's motion via GO and STOP methods,
         along with various methods that GO/STOP under control of a sensor.
@@ -68,10 +67,9 @@ class DriveSystem(object):
           :type sensor_system:  SensorSystem
         """
         self.sensor_system = sensor_system
-        self.a = TouchSensor(port=(1))
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-        self.system = ArmAndClaw(self.sensor_system.touch_sensor)
+        self.sound = SoundSystem()
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
@@ -330,12 +328,22 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-    def go_forward_and_and_lift(self):
-        self.go(50, 50)
-        ir_sensor = InfraredProximitySensor(4)
-        if ir_sensor.get_distance_in_inches() <= 2:
-            self.stop()
-            self.system.raise_arm()
+    def Toone_move(self,seconds,speed, freq, dur):
+        frequcence = freq
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor1 = ev3.InfraredSensor()
+            distance = sensor1.proximity
+            self.sound.beep_at_tone(int(dur), int(frequcence))
+            frequcence = frequcence + 50
+            if distance <= seconds:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
+
+
+
 
 
 ###############################################################################
@@ -385,6 +393,7 @@ class ArmAndClaw(object):
                 self.motor.turn_off()
                 self.motor.reset_position()
                 break
+
 
 
 
