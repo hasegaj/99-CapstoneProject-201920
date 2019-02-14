@@ -19,7 +19,8 @@ def main():
     """
     #real_thing()
     #test()
-    spin()
+    #spin()
+    F_stuff()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -36,7 +37,11 @@ def test():
 
 def spin():
     robot = rosebot.RoseBot()
-    robot.drive_system.spin_clockwise_until_sees_object(100,1000)
+    robot.drive_system.spin_counterclockwise_until_sees_object(100,2500)
+
+def F_stuff():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_forward_until_distance_is_less_than(2,50)
 
 
 
