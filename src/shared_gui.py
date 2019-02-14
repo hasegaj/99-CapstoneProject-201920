@@ -238,10 +238,12 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_label = ttk.Label(frame, text="What do you want to say?")
     Phase_entry = ttk.Entry(frame, width=20, justify=tkinter.LEFT)
     Phase_entry.insert(0, "Hey Jarvis")
+    Speed_label = ttk.Label(frame, text="Speed?")
     speed_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
-    speed_entry.grid(row=2, column=0, sticky='w')
-    second_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
-    second_entry.grid(row=4, column=0, sticky='w')
+    speed_entry.grid(row=5, column=2, sticky='w')
+    Speed_label.grid(row=5, column=3, sticky='w')
+    second_entry = ttk.Entry(frame, width=5, justify=tkinter.LEFT)
+    second_entry.grid(row=5, column=4, sticky='w')
 
     beeper_button = ttk.Button(frame, text="Beep!")
     Tone_button = ttk.Button(frame, text="Make a Tone!")
@@ -255,16 +257,17 @@ def get_soundsystem_frame(window, mqtt_sender):
     beeper_entry.grid(row=2, column=0,sticky='w')
     beeper_button.grid(row=2,column=2)
 
+
     F_label.grid(row=4, column=0,sticky='w')
     F_entry.grid(row=5, column=0,sticky='w')
     D_label.grid(row=6, column=0,sticky='w')
     D_entry.grid(row=7, column=0,sticky='w')
-    Tone_button.grid(row=7, column=2)
+    Tone_button.grid(row=4, column=4)
 
     Phase_label.grid(row=9, column=0,sticky='w')
     Phase_entry.grid(row=10, column=0,sticky='w')
     Phase_button.grid(row=10, column=2)
-    Move_tone.grid(row=10, column=2)
+    Move_tone.grid(row=8, column=2)
 
 
 
