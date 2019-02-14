@@ -68,10 +68,10 @@ class DriveSystem(object):
           :type sensor_system:  SensorSystem
         """
         self.sensor_system = sensor_system
-        self.a = TouchSensor()
+        self.a = TouchSensor(port=(1))
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-        self.system = ArmAndClaw()
+        self.system = ArmAndClaw(self.sensor_system.touch_sensor)
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------

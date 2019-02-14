@@ -15,8 +15,7 @@
 """
 import tkinter
 from tkinter import ttk
-import time
-import rosebot
+
 
 
 def get_teleoperation_frame(window, mqtt_sender):
@@ -286,6 +285,7 @@ def get_soundsystem_frame(window, mqtt_sender):
 
 
 
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -447,3 +447,4 @@ def handle_exit(mqtt_sender):
 def straight_until_color_is(speed,color, mqtt_sender):
     print('color')
     mqtt_sender.send_message('until_color',[speed.get(),color.get()])
+
