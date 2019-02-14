@@ -6,7 +6,7 @@
     and Josiah Hasegawa, Zeyu Liao, Yifan Dai. hellow
   Winter term, 2018-2019.1
 """
-from threading import Thread
+import liao
 import time
 class Reciver(object):
     def __init__(self, robot):
@@ -84,7 +84,7 @@ class Reciver(object):
     def speaker(self, x):
         self.robot.sound_system.speak_phrase(str(x))
 
-    def tone_move(self,seconds,speed, freq, dur, distance):
+    def liao_tone_move(self,seconds,speed, freq, dur, distance):
         frequcence = freq
         while True:
             self.robot.drive_system.go_straight_for_seconds(int(speed),int(seconds))
@@ -92,6 +92,7 @@ class Reciver(object):
             frequcence = frequcence + 50
             if distance <= 1:
                 break
+        self.robot.drive_system.stop()
         self.stop()
 
 

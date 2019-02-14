@@ -40,12 +40,15 @@ def get_teleoperation_frame(window, mqtt_sender):
     left_speed_entry.insert(0, "100")
     right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "100")
+    color_entry = ttk.Entry(frame, width=4, justify=tkinter.LEFT)
+
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
     left_button = ttk.Button(frame, text="Left")
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
+    Move_tone = ttk.Button(frame, text='Color')
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
@@ -59,6 +62,8 @@ def get_teleoperation_frame(window, mqtt_sender):
     stop_button.grid(row=4, column=1)
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
+    color_entry.grid(row=5,column=3)
+    Move_tone.grid(row=5, column=2)
 
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
@@ -70,7 +75,7 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button["command"] = lambda: handle_right(
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
-
+    Move_tone["command"] = lambda: straight_until_color_is(left_speed_entry, color_entry, mqtt_sender)
     return frame
 
 
@@ -238,17 +243,12 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_label = ttk.Label(frame, text="What do you want to say?")
     Phase_entry = ttk.Entry(frame, width=20, justify=tkinter.LEFT)
     Phase_entry.insert(0, "Hey Jarvis")
-    Speed_label = ttk.Label(frame, text="Speed?")
-    speed_entry = ttk.Entry(frame, width=8, justify=tkinter.LEFT)
-    speed_entry.grid(row=5, column=2, sticky='w')
-    Speed_label.grid(row=5, column=3, sticky='w')
-    second_entry = ttk.Entry(frame, width=5, justify=tkinter.LEFT)
-    second_entry.grid(row=5, column=4, sticky='w')
+
 
     beeper_button = ttk.Button(frame, text="Beep!")
     Tone_button = ttk.Button(frame, text="Make a Tone!")
     Phase_button = ttk.Button(frame, text='Make it!')
-    Move_tone  = ttk.Button(frame, text='Move tone!')
+
 
     #
     frame_label.grid(row=0, column=1)
@@ -267,7 +267,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phase_label.grid(row=9, column=0,sticky='w')
     Phase_entry.grid(row=10, column=0,sticky='w')
     Phase_button.grid(row=10, column=2)
-    Move_tone.grid(row=8, column=2)
+
 
 
 
@@ -275,7 +275,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
     Tone_button["command"] = lambda: handle_tone(F_entry,D_entry,mqtt_sender)
     Phase_button["command"] = lambda: say_a_pharse(Phase_entry, mqtt_sender)
-    Move_tone["command"] = lambda: handle_tone_move(second_entry, speed_entry,F_entry,D_entry,mqtt_sender)
+
     return frame
 
 
@@ -444,6 +444,6 @@ def handle_exit(mqtt_sender):
     print('Exit')
     handle_quit(mqtt_sender)
     exit()
-def handle_tone_move(seconds,speed, fren, dur, mqtt_sender):
-    print('M+T')
-    mqtt_sender.send_message('tone_move',[seconds.get(), speed.get(),fren.get(),dur.get()])
+def straight_until_color_is(speed,color, mqtt_sender):
+    print('color')
+    mqtt_sender.send_message('until_color',[speed.get(),color.get()])
