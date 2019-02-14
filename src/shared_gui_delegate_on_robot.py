@@ -85,14 +85,15 @@ class Reciver(object):
         self.robot.sound_system.speak_phrase(str(x))
 
     def tone_move(self,seconds,speed, freq, dur, distance):
-        now = time.time()
-        A = Thread(target= self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed)))
-        B = Thread(target= self.robot.sound_system.beep_at_tone(int(freq), int(dur)))
+        frequcence = freq
         while True:
-            A.start()
-            if time.time() - now> distance:
-                B.start()
-                now = time.time()
+            self.robot.drive_system.go_straight_for_seconds(int(speed),int(seconds))
+            self.robot.sound_system.beep_at_tone(int(freq), int(dur))
+            frequcence = frequcence + 50
+            if distance <= 1:
+                break
+        self.stop()
+
 
 
 
