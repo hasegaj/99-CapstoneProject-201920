@@ -10,6 +10,7 @@
 import tkinter
 from tkinter import ttk
 import time
+import rosebot
 
 def get_teleoperation_frame(window, mqtt_sender):
     """
