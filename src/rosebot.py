@@ -43,6 +43,7 @@ class RoseBot(object):
 #    DriveSystem
 ###############################################################################
 class DriveSystem(object):
+
     """
     Controls the robot's motion via GO and STOP methods,
         along with various methods that GO/STOP under control of a sensor.
@@ -67,9 +68,10 @@ class DriveSystem(object):
           :type sensor_system:  SensorSystem
         """
         self.sensor_system = sensor_system
+        self.a = TouchSensor()
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-
+        self.system = ArmAndClaw()
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
@@ -327,6 +329,14 @@ class DriveSystem(object):
             if Area > area :
                 self.stop()
                 break
+
+    def go_forward_and_and_lift(self):
+        self.go(50, 50)
+        ir_sensor = InfraredProximitySensor(4)
+        if ir_sensor.get_distance_in_inches() <= 2:
+            self.stop()
+            self.system.raise_arm()
+
 
 ###############################################################################
 #    ArmAndClawv
