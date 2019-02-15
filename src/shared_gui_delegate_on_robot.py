@@ -85,6 +85,7 @@ class Reciver(object):
 
     def tone_move(self,seconds,speed, freq, dur):
         self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.
         self.robot.drive_system.Toone_move(float(seconds),int(speed), int(freq), int(dur))
         self.robot.arm_and_claw.raise_arm()
 
