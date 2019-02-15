@@ -19,6 +19,7 @@ def main():
     real_thing()
     # something()
     # raise_arm()
+    #anything()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -28,6 +29,9 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
+
+def anything():
+    robot = rosebot.RoseBot()
 
 
 # def something():
