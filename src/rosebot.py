@@ -342,6 +342,18 @@ class DriveSystem(object):
         self.left_motor.turn_off()
         self.right_motor.turn_off()
 
+    def beep_move(self,distance1,speed, beep, dur):
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor1 = ev3.InfraredSensor()
+            distance = sensor1.proximity
+            self.sound.beep_speed(int(dur), int(beep))
+            beep = beep + 50
+            if distance <= distance1:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
 
 
