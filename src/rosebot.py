@@ -32,8 +32,9 @@ class RoseBot(object):
         # Use these instance variables
         self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
-        self.led_system = LEDSystem()
-        self.drive_system = DriveSystem(self.sensor_system)
+        self.led_left = LED('left')
+        self.led_right = LED('right')
+        self.drive_system = DriveSystem(self.sensor_system, self.led_left, self.led_right)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
@@ -60,7 +61,7 @@ class DriveSystem(object):
     #          (i.e., left motor goes at speed -S, right motor at speed S).
     # -------------------------------------------------------------------------
 
-    def __init__(self, sensor_system):
+    def __init__(self, sensor_system, led_system, led):
         """
         Stores the given SensorSystem object.
         Constructs two Motors (for the left and right wheels).
@@ -70,6 +71,8 @@ class DriveSystem(object):
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
         self.sound = SoundSystem()
+        self.led_left = led_system
+        self.led_right = led
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
@@ -328,7 +331,7 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-    def Toone_move(self,seconds,speed, freq, dur):
+    def Toone_move(self, seconds, speed, freq, dur):
         frequcence = freq
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
@@ -336,11 +339,24 @@ class DriveSystem(object):
             sensor1 = ev3.InfraredSensor()
             distance = sensor1.proximity
             self.sound.beep_at_tone(int(dur), int(frequcence))
+            self.led_left.turn_on()
+            self.led_left.turn_off()
+            time.sleep(distance/100)
+            self.led_right.turn_on()
+            self.led_right.turn_off()
+            time.sleep(distance/100)
+            self.led_left.turn_on()
+            self.led_right.turn_on()
+            self.led_left.turn_off()
+            self.led_right.turn_off()
+            time.sleep(distance/100)
             frequcence = frequcence + 50
             if distance <= seconds:
                 break
         self.left_motor.turn_off()
         self.right_motor.turn_off()
+        self.led_left.set_color_by_fractions(0, 1)
+        self.led_right.set_color_by_fractions(0, 1)
 
 
 
