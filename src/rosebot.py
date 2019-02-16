@@ -342,14 +342,15 @@ class DriveSystem(object):
         self.left_motor.turn_off()
         self.right_motor.turn_off()
 
-    def beep_move(self,distance1,speed, beep, dur):
+    def beep_move(self, distance1,speed, dura):
+        duration = dura
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
         while True:
             sensor1 = ev3.InfraredSensor()
             distance = sensor1.proximity
-            self.sound.beep_speed(int(dur), int(beep))
-            beep = beep + 50
+            self.sound.beep_speed(duration)
+            duration = duration -1
             if distance <= distance1:
                 break
         self.left_motor.turn_off()
@@ -480,6 +481,10 @@ class SoundSystem(object):
     def speak_phrase(self, word):
         speaker = SpeechMaker()
         speaker.speak(word)
+
+    def beep_speed(self, duration):
+        self.beeper.beep().wait()
+        time.sleep(duration)
 
 ###############################################################################
 #    LEDSystem
