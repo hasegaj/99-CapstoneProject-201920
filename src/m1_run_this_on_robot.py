@@ -9,6 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot as rec
+import ev3dev.ev3 as ev3
 
 def main():
     """
@@ -16,11 +17,13 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    #real_thing()
+    real_thing()
     #F_stuff()
     #light_cycle()
+    #flash_lights()
+    #merp = rosebot.RoseBot()
+    #merp.drive_system.Toone_move(5, 30, .2, 400)
 
-    flash_lights()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -75,6 +78,7 @@ def flash_lights():
             robot.right_led.turn_off()
             robot.left_led.turn_off()
             break
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
