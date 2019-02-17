@@ -6,6 +6,8 @@
     and Josiah Hasegawa, Zeyu Liao, Yifan Dai. hellow
   Winter term, 2018-2019.1
 """
+import m3Extra
+
 
 class Reciver(object):
     def __init__(self, robot):
@@ -93,5 +95,5 @@ class Reciver(object):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
 
-
-
+    def beep_move(self,distance, speed, dura):
+        m3Extra.beep_move(self.robot, int(distance), int(speed), int(dura))

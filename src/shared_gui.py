@@ -448,4 +448,3 @@ def handle_exit(mqtt_sender):
 def straight_until_color_is(speed,color, mqtt_sender):
     print('color')
     mqtt_sender.send_message('until_color',[speed.get(),color.get()])
-

@@ -1,40 +1,59 @@
-import tkinter
-from tkinter import ttk
+import time
 
 
-def get_teleoperation_frame(window, mqtt_sender):
 
-    # Construct the frame to return:
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    frame.grid()
+def beep_move(robot, distance1, speed, dura):
+    """
+    :type robot: rosebot.RoseBot
 
-    # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="GodDzZ")
-    speed_label = ttk.Label(frame, text="wheel speed (0 to 100)")
-    speed_entry = ttk.Entry(frame, width=8)
-    speed_entry.insert(0, "100")
-    distance_label = ttk.Label(frame, text="distance")
-    distance_entry = ttk.Entry(frame, width=5, justify=tkinter.LEFT)
+    """
+    robot.drive_system.go(speed, speed)
+    duration = dura
+    while True:
+        sensor1 = robot.sensor_system.ir_proximity_sensor
+        distance = sensor1.get_distance_in_inches()
+        robot.sound_system.beeper.beep().wait()
+        duration = duration - 1
+        if duration <= 1:
+            duration = 1
+        time.sleep(duration)
+        if distance <= distance1:
+            break
 
-    dur_label = ttk.Label(frame, text="dur")
-    dur_entry = ttk.Entry(frame, width=4, justify=tkinter.LEFT)
-    beep_button = ttk.Button(frame, text='Move beep!')
+    robot.drive_system.stop()
 
-    # Grid the widgets:
-    frame_label.grid(row=0, column=1)
-    speed_label.grid(row=2, column=0)
-    speed_entry.grid(row=2, column=1)
-    distance_label.grid(row=2, column=2)
-    distance_entry.grid(row=2, column=3, sticky='w')
+def angry_robot(robot,distance,speed, tone, dur, color,second, area, number):
+    """
+        :type robot: rosebot.RoseBot
 
-    dur_label.grid(row=4, column=0)
-    dur_entry.grid(row=4, column=1)
-    beep_button.grid(row=3, column=3)
-    # Set the button callbacks:
-    beep_button["command"] = lambda: handle_beep_move(distance_entry,speed_entry,dur_entry,mqtt_sender)
+        """
+    robot.drive_system.go_straight_for_seconds(second,speed)
+    robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+    beep_move(robot, distance, speed, dur)
+    robot.drive_system.stop()
+    robot.sound_system.speak_phrase('Hello, I am Yifan Dai')
+    robot.sound_system.beep_for_n_times(number)
+    robot.led_left
+    robot.led_right
+    robot.sound_system.speak_phrase('Error occur, I am angry')
+    robot.drive_system.spin(speed, speed).wait()
+    while True:
+        time.sleep(second)
+        break
+    robot.sound_system.speak_phrase('I am not angry any more')
+    robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+    beep_move(robot, distance, speed, dur)
+    robot.arm_and_claw.raise_arm()
+    robot.spin(speed, speed).wait()
+    while True:
+        time.sleep(second)
+        break
+    robot.drive_system.go_straight_until_color_is(color, speed)
+    robot.arm_and_claw.lower_arm()
+    robot.sound_system.beep_at_tone(tone, frequency=532)
+    robot.sound_system.speak_phrase('Thnank you for wathing')
 
-    return frame
 
-def handle_beep_move(distance1, speed, dur, mqtt_sender):
-    print('beep move')
-    mqtt_sender.send_message('beep_move',[distance1.get(), speed.get(),dur.get()])
+
+
+

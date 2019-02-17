@@ -78,6 +78,9 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     # Methods for driving with no external sensor (just the built-in encoders).
     # -------------------------------------------------------------------------
+    def spin(self, left_wheel_speed, right_wheel_speed):
+        self.left_motor.turn_on(int(left_wheel_speed))
+        self.right_motor.turn_on(-int(right_wheel_speed))
 
     def go(self, left_wheel_speed, right_wheel_speed):
         """ Makes the left and right wheel motors spin at the given speeds. """
@@ -358,19 +361,7 @@ class DriveSystem(object):
         self.led_left.set_color_by_fractions(0, 1)
         self.led_right.set_color_by_fractions(0, 1)
 
-    def beep_move(self, distance1,speed, dura):
-        duration = dura
-        self.left_motor.turn_on(speed)
-        self.right_motor.turn_on(speed)
-        while True:
-            sensor1 = ev3.InfraredSensor()
-            distance = sensor1.proximity
-            self.sound.beep_speed(duration)
-            duration = duration -1
-            if distance <= distance1:
-                break
-        self.left_motor.turn_off()
-        self.right_motor.turn_off()
+
 
 
 
