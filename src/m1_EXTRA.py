@@ -1,37 +1,40 @@
 # Capstone project
 # Author: Josiah Hasegawa
 import rosebot
-import shared_gui_delegate_on_robot
-import tkinter
-from tkinter import ttk
-
-def get_guard_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
-    frame.grid()
-
-    frame_label = ttk.Label(frame, text="Guard")
-    lotr_label = ttk.Label(frame, text="gandalf")
-    skyrim_label = ttk.Label(frame, text="skyrim guard")
-
-    lotr_button = ttk.Button(frame, text="gandalf")
-    skyrim_button = ttk.Button(frame, text="skyrim guard")
-
-    #grid widgits
-    frame_label.grid(row=0, column=1)
-    lotr_label.grid(row=3, column=0)
-    skyrim_label.grid(row=4, column=0)
-
-    lotr_button.grid(row=3, column=1)
-    skyrim_button.grid(row=4, column=1)
-
-    #button callbacks
-    #lotr_button["command"]= lambda:
-    #skyrim_button["command"] = lambda:
-
-    return frame
-
-def get_feature_10_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=6, borderwidth=7, relief="ridge")
-    frame.grid()
 
 
+import time
+
+
+
+
+
+def whale(n, k):
+    robot = rosebot.RoseBot()
+    sensor = robot.sensor_system.ir_proximity_sensor
+    robot.drive_system.go(30, 30)
+    left = robot.led_left
+    right = robot.led_right
+    n = float(n)
+    k = float(k)
+    while True:
+        ir = sensor.get_distance()
+        left.turn_on()
+        left.turn_off()
+        time.sleep(k*ir / n)
+
+        right.turn_on()
+        right.turn_off()
+        time.sleep(k*ir / n)
+
+        left.turn_on()
+        right.turn_on()
+        left.turn_off()
+        right.turn_off()
+        time.sleep(k*ir / n)
+
+        if ir <= 3:
+            left.set_color_by_name((0, 1))
+            right.set_color_by_name((0, 1))
+            break
+    robot.drive_system.stop()

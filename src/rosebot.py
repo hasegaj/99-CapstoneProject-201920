@@ -13,7 +13,7 @@
 import ev3dev.ev3 as ev3
 import time
 import math
-
+import m1_EXTRA
 
 ###############################################################################
 #    RoseBot class.
@@ -342,17 +342,6 @@ class DriveSystem(object):
             sensor1 = ev3.InfraredSensor()
             distance = sensor1.proximity
             self.sound.beep_at_tone(int(dur), int(frequcence))
-            self.led_left.turn_on()
-            self.led_left.turn_off()
-            time.sleep(distance/100)
-            self.led_right.turn_on()
-            self.led_right.turn_off()
-            time.sleep(distance/100)
-            self.led_left.turn_on()
-            self.led_right.turn_on()
-            self.led_left.turn_off()
-            self.led_right.turn_off()
-            time.sleep(distance/100)
             frequcence = frequcence + 50
             if distance <= seconds:
                 break
@@ -360,7 +349,9 @@ class DriveSystem(object):
         self.right_motor.turn_off()
         self.led_left.set_color_by_fractions(0, 1)
         self.led_right.set_color_by_fractions(0, 1)
-
+    
+    def whale(self, n, k):
+        m1_EXTRA.whale(n, k)
 
 
 

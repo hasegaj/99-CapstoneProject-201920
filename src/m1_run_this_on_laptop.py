@@ -11,7 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
-import m1_EXTRA
+
 
 def main():
     """
@@ -41,7 +41,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame, new_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -51,13 +51,60 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame, new_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
 
     root.mainloop()
+def get_guard_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Guard")
+    lotr_label = ttk.Label(frame, text="gandalf")
+    skyrim_label = ttk.Label(frame, text="skyrim guard")
+
+    lotr_button = ttk.Button(frame, text="gandalf")
+    skyrim_button = ttk.Button(frame, text="skyrim guard")
+
+    #grid widgits
+    frame_label.grid(row=0, column=1)
+    lotr_label.grid(row=3, column=0)
+    skyrim_label.grid(row=4, column=0)
+
+    lotr_button.grid(row=3, column=1)
+    skyrim_button.grid(row=4, column=1)
+
+    #button callbacks
+    #lotr_button["command"]= lambda:
+    #skyrim_button["command"] = lambda:
+
+    return frame
+
+def get_feature_10_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=6, borderwidth=7, relief="ridge")
+    frame.grid()
+
+
+def get_object_while_blinking(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=3, borderwidth=4, relief="ridge")
+    frame.grid()
+
+    label = ttk.Label(frame, text="pick up object while flashing")
+    button = ttk.Button(frame, text="ugh")
+    entry = ttk.Entry(frame, width=5)
+    entry2 = ttk.Entry(frame, width=5)
+    entry2.insert(0, '1')
+
+    label.grid(row=1, column=1)
+    button.grid(row=1, column=2)
+    entry.grid(row=1, column=3)
+    entry2.grid(row=2, column=3)
+
+    button["command"]= lambda: shared_gui.handle_ugh(entry, entry2, mqtt_sender)
+    return frame
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
@@ -65,17 +112,20 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     test_frame = shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
     sound_frame = shared_gui.get_soundsystem_frame(main_frame, mqtt_sender)
-    guard_frame = m1_EXTRA.get_guard_frame(main_frame, mqtt_sender)
-    return teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame
+    guard_frame = get_guard_frame(main_frame, mqtt_sender)
+    new_frame = get_object_while_blinking(main_frame, mqtt_sender)
+    return teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame, new_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame, guard_frame, new_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     test_frame.grid(row=0, column=1)
     sound_frame.grid(row=1, column=1)
     guard_frame.grid(row=3, column=0)
+    new_frame.grid(row=3, column=2)
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
