@@ -92,6 +92,7 @@ class Reciver(object):
     def until_color(self,speed,color):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
-
-
+    def whale(self, n, k):
+        self.robot.drive_system.whale(n, k)
+        self.robot.arm_and_claw.raise_arm()
 

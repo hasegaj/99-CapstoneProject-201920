@@ -9,7 +9,6 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot as rec
-import ev3dev.ev3 as ev3
 
 def main():
     """
@@ -23,7 +22,7 @@ def main():
     #flash_lights()
     #merp = rosebot.RoseBot()
     #merp.drive_system.Toone_move(5, 30, .2, 400)
-
+    #whale()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -34,50 +33,6 @@ def real_thing():
     while True:
         time.sleep(.01)
 
-def F_stuff():
-    robot = rosebot.RoseBot()
-    robot.drive_system.go_forward_until_distance_is_less_than(2, 50)
-
-def light_cycle():
-    robot = rosebot.RoseBot().led_system
-    robot.left_led.turn_on()
-    time.sleep(1)
-    robot.left_led.turn_off()
-    robot.right_led.turn_on()
-    time.sleep(1)
-    robot.right_led.turn_off()
-    robot.right_led.turn_on()
-    robot.left_led.turn_on()
-    time.sleep(1)
-    robot.right_led.turn_off()
-    robot.left_led.turn_off()
-
-
-def flash_lights():
-    robot = rosebot.RoseBot().led_system
-    r = rosebot.RoseBot().sensor_system.ir_proximity_sensor
-    while True:
-
-        if r.get_distance_in_inches() >= 1:
-            robot.left_led.turn_on()
-            robot.left_led.turn_off()
-            time.sleep(r.get_distance_in_inches() / 20)
-
-            robot.right_led.turn_on()
-            robot.right_led.turn_off()
-            time.sleep(r.get_distance_in_inches() / 20)
-
-            robot.right_led.turn_on()
-            robot.left_led.turn_on()
-
-            robot.right_led.turn_off()
-            robot.left_led.turn_off()
-            time.sleep(r.get_distance_in_inches() / 20)
-
-        if r.get_distance_in_inches() <= 1:
-            robot.right_led.turn_off()
-            robot.left_led.turn_off()
-            break
 
 
 # -----------------------------------------------------------------------------
