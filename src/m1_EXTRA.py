@@ -38,3 +38,11 @@ def whale(n, k):
             right.set_color_by_name((0, 1))
             break
     robot.drive_system.stop()
+
+def skyrim():
+    robot = rosebot.RoseBot()
+    speak = rosebot.SpeechMaker()
+
+def lotr():
+    robot = rosebot.RoseBot()
+    speak = rosebot.SpeechMaker()

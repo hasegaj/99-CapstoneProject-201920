@@ -449,3 +449,8 @@ def straight_until_color_is(speed,color, mqtt_sender):
     print('color')
     mqtt_sender.send_message('until_color',[speed.get(),color.get()])
 
+#buttons for josiah's project
+
+def handle_ugh(n, k, mqtt_sender):
+    print('ugh')
+    mqtt_sender.send_message('whale', [n, k])

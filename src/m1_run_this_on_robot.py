@@ -17,12 +17,6 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
-    #F_stuff()
-    #light_cycle()
-    #flash_lights()
-    #merp = rosebot.RoseBot()
-    #merp.drive_system.Toone_move(5, 30, .2, 400)
-    #whale()
 
 def real_thing():
     robot = rosebot.RoseBot()

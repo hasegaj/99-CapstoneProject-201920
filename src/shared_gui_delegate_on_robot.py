@@ -93,5 +93,7 @@ class Reciver(object):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
 
+    def whale(self, n ,k):
 
+        self.robot.drive_system.whale(n, k)
 
