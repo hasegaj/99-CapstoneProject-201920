@@ -92,8 +92,10 @@ class Reciver(object):
     def until_color(self,speed,color):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
-
+#test code for josiah, do not change this please
     def whale(self, n ,k):
-
         self.robot.drive_system.whale(n, k)
 
+    def skyrim(self):
+        self.robot.drive_system.skyrim()
+        print('the things i do for memes')

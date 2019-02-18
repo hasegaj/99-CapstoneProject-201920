@@ -1,13 +1,7 @@
 # Capstone project
 # Author: Josiah Hasegawa
 import rosebot
-
-
 import time
-
-
-
-
 
 def whale(n, k):
     robot = rosebot.RoseBot()
@@ -42,7 +36,28 @@ def whale(n, k):
 def skyrim():
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
+    while robot.sensor_system.color_sensor.get_color() != 'Yellow':
+        rng = robot.sensor_system.ir_proximity_sensor.get_distance()
 
-def lotr():
+
+def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
+
+    while True:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 20:
+            break
+    robot.drive_system.go(n, n)
+
+    while True:
+
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=3:
+            robot.drive_system.stop()
+            break
+
+    speak.speak('You shall not pass')
+
+def touch_sensor_test():
+    robot = rosebot.RoseBot()
+    if robot.sensor_system.touch_sensor.is_pressed():
+        return 'boop'
