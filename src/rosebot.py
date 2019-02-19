@@ -357,6 +357,8 @@ class DriveSystem(object):
     def lotr(self, n):
         m1_EXTRA.lotr(n)
 
+    def skyrim(self):
+        m1_EXTRA.skyrim()
 
 ###############################################################################
 #    ArmAndClawv

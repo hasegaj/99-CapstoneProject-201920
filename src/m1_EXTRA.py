@@ -35,12 +35,18 @@ def whale(n, k):
 
 def skyrim():
     robot = rosebot.RoseBot()
+    f = 0
     while robot.sensor_system.color_sensor.get_color() != 4:
         rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
         rng2 = robot.drive_system.right_motor.get_position()
         rng3 = robot.drive_system.left_motor.get_position()
+
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.tone_maker.play_sound_file()
+            if f < 7:
+                f = f + 1
+            else:
+                f = f - 7
 
         if (rng1 + rng2 + rng3) % 2==0:
             robot.drive_system.go()
