@@ -35,9 +35,22 @@ def whale(n, k):
 
 def skyrim():
     robot = rosebot.RoseBot()
-    speak = rosebot.SpeechMaker()
-    while robot.sensor_system.color_sensor.get_color() != 'Yellow':
-        rng = robot.sensor_system.ir_proximity_sensor.get_distance()
+    while robot.sensor_system.color_sensor.get_color() != 4:
+        rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
+        rng2 = robot.drive_system.right_motor.get_position()
+        rng3 = robot.drive_system.left_motor.get_position()
+        if robot.sensor_system.touch_sensor.is_pressed():
+            robot.tone_maker.play_sound_file()
+
+        if (rng1 + rng2 + rng3) % 2==0:
+            robot.drive_system.go()
+            time.sleep()
+            robot.drive_system.stop()
+        elif (rng1 + rng2 + rng3) % 2 !=0:
+            robot.drive_system.go()
+            time.sleep()
+            robot.drive_system.stop()
+
 
 def guard_quotes():
     list = []
@@ -61,7 +74,7 @@ def lotr(n):
 
     speak.speak('You shall not pass')
     time.sleep(1)
-    
+
 
 def touch_sensor_test():
     robot = rosebot.RoseBot()

@@ -38,6 +38,7 @@ class RoseBot(object):
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
+        self.tone_maker = ToneMaker()
 
 
 ###############################################################################
@@ -973,6 +974,9 @@ class ToneMaker(object):
         """
         return self._tone_maker.tone(tones)
 
+    def play_sound_file(self, n):
+
+        return self._tone_maker.play(n)
 
 ###############################################################################
 # SpeechMaker
