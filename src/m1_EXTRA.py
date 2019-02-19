@@ -39,7 +39,8 @@ def skyrim():
     while robot.sensor_system.color_sensor.get_color() != 'Yellow':
         rng = robot.sensor_system.ir_proximity_sensor.get_distance()
 
-
+def guard_quotes():
+    list = []
 def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
@@ -59,9 +60,8 @@ def lotr(n):
             break
 
     speak.speak('You shall not pass')
-
-
-
+    time.sleep(1)
+    
 
 def touch_sensor_test():
     robot = rosebot.RoseBot()
