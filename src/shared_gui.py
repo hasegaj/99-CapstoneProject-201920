@@ -460,5 +460,5 @@ def handle_skyrim(mqtt_sender):
     mqtt_sender.send_message('skyrim', )
 
 def handle_lotr(n, mqtt_sender):
-    print("meh")
-    mqtt_sender.send_message('lotr', n)
+    print('meh')
+    mqtt_sender.send_message('lotr', [n.get()])

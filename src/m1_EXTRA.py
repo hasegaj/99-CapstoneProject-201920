@@ -43,7 +43,7 @@ def skyrim():
 def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
-
+    n = float(n)
     while True:
         if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 20:
             break

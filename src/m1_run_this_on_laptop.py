@@ -69,7 +69,7 @@ def sprint_3_GUI():
 
     main_frame = ttk.Frame(root, padding=12, borderwidth=6, relief='groove')
     main_frame.grid()
-    guard_frame = get_frame_2(main_frame, mqtt_sender)
+    guard_frame = get_guard_frame(main_frame, mqtt_sender)
     grid_2(guard_frame)
 
     root.mainloop()
@@ -86,11 +86,13 @@ def get_guard_frame(window, mqtt_sender):
     skyrim_button = ttk.Button(frame, text="skyrim guard")
 
     lotr_entry = ttk.Entry(frame, width=5)
+    lotr_entry.insert(0, '30')
+
     #grid widgits
     frame_label.grid(row=0, column=1)
     lotr_label.grid(row=3, column=0)
     skyrim_label.grid(row=4, column=0)
-
+    lotr_entry.grid(row=3, column=2)
     lotr_button.grid(row=3, column=1)
     skyrim_button.grid(row=4, column=1)
 
@@ -99,7 +101,6 @@ def get_guard_frame(window, mqtt_sender):
     #skyrim_button["command"] = lambda: shared_gui.handle_skyrim(mqtt_sender)
 
     return frame
-
 
 def get_object_while_blinking(window, mqtt_sender):
     frame = ttk.Frame(window, padding=3, borderwidth=4, relief="ridge")
