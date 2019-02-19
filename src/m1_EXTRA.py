@@ -44,18 +44,24 @@ def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
     n = float(n)
+
     while True:
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 20:
+        time.sleep(.5)
+
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 15:
+            robot.drive_system.go(n, n)
             break
-    robot.drive_system.go(n, n)
 
     while True:
 
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=3:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<=5:
             robot.drive_system.stop()
             break
 
     speak.speak('You shall not pass')
+
+
+
 
 def touch_sensor_test():
     robot = rosebot.RoseBot()
