@@ -93,13 +93,13 @@ class Reciver(object):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
 #test code for josiah, do not change this please
-    def whale(self, n ,k):
+    def whale(self, n, k):
         self.robot.drive_system.whale(n, k)
 
     def skyrim(self):
         self.robot.drive_system.skyrim()
         print('the things i do for memes')
 
-    def lotr(self):
-        self.robot.drive_system.lotr()
+    def lotr(self, n):
+        self.robot.drive_system.lotr(n)
         print("must...meme...")

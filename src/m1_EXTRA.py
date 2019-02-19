@@ -61,3 +61,4 @@ def touch_sensor_test():
     robot = rosebot.RoseBot()
     if robot.sensor_system.touch_sensor.is_pressed():
         return 'boop'
+

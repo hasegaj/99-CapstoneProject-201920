@@ -353,8 +353,8 @@ class DriveSystem(object):
     def whale(self, n, k):
         m1_EXTRA.whale(n, k)
 
-
-
+    def lotr(self, n):
+        m1_EXTRA.lotr(n)
 
 
 ###############################################################################
