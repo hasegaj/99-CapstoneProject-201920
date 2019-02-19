@@ -99,3 +99,7 @@ class Reciver(object):
     def skyrim(self):
         self.robot.drive_system.skyrim()
         print('the things i do for memes')
+
+    def lotr(self):
+        self.robot.drive_system.lotr()
+        print("must...meme...")

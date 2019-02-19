@@ -454,3 +454,11 @@ def straight_until_color_is(speed,color, mqtt_sender):
 def handle_ugh(n, k, mqtt_sender):
     print('ugh')
     mqtt_sender.send_message('whale', [n, k])
+
+def skyrim(mqtt_sender):
+    print('merp')
+    mqtt_sender.send_message('skyrim', )
+    
+def lotr(mqtt_sender):
+    print("meh")
+    mqtt_sender.send_message('lotr', )
