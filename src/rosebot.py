@@ -13,7 +13,7 @@
 import ev3dev.ev3 as ev3
 import time
 import math
-import m1_EXTRA
+
 
 ###############################################################################
 #    RoseBot class.
@@ -32,13 +32,11 @@ class RoseBot(object):
         # Use these instance variables
         self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
-        self.led_left = LED('left')
-        self.led_right = LED('right')
-        self.drive_system = DriveSystem(self.sensor_system, self.led_left, self.led_right)
+        self.led_system = LEDSystem()
+        self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
-        self.tone_maker = ToneMaker()
 
 
 ###############################################################################
@@ -62,7 +60,7 @@ class DriveSystem(object):
     #          (i.e., left motor goes at speed -S, right motor at speed S).
     # -------------------------------------------------------------------------
 
-    def __init__(self, sensor_system, led_system, led):
+    def __init__(self, sensor_system):
         """
         Stores the given SensorSystem object.
         Constructs two Motors (for the left and right wheels).
@@ -72,16 +70,11 @@ class DriveSystem(object):
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
         self.sound = SoundSystem()
-        self.led_left = led_system
-        self.led_right = led
         self.wheel_circumference = 1.3 * math.pi
-
+        self.arm = ArmAndClaw(self.sensor_system.touch_sensor)
     # -------------------------------------------------------------------------
     # Methods for driving with no external sensor (just the built-in encoders).
     # -------------------------------------------------------------------------
-    def spin(self, left_wheel_speed, right_wheel_speed):
-        self.left_motor.turn_on(int(left_wheel_speed))
-        self.right_motor.turn_on(-int(right_wheel_speed))
 
     def go(self, left_wheel_speed, right_wheel_speed):
         """ Makes the left and right wheel motors spin at the given speeds. """
@@ -316,7 +309,7 @@ class DriveSystem(object):
         while True:
             blob = pixy.get_biggest_blob()
             Area = blob.width * blob.height
-            if Area > area:
+            if Area >= area:
                 self.stop()
                 break
 
@@ -331,11 +324,11 @@ class DriveSystem(object):
         while True:
             blob = pixy.get_biggest_blob()
             Area = blob.width * blob.height
-            if Area > area :
+            if Area >= area :
                 self.stop()
                 break
 
-    def Toone_move(self, seconds, speed, freq, dur):
+    def Toone_move(self,seconds,speed, freq, dur):
         frequcence = freq
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
@@ -348,17 +341,42 @@ class DriveSystem(object):
                 break
         self.left_motor.turn_off()
         self.right_motor.turn_off()
-        self.led_left.set_color_by_fractions(0, 1)
-        self.led_right.set_color_by_fractions(0, 1)
-    
-    def whale(self, n, k):
-        m1_EXTRA.whale(n, k)
 
-    def lotr(self, n):
-        m1_EXTRA.lotr(n)
 
-    def skyrim(self, n):
-        m1_EXTRA.skyrim(n)
+    def m2_extra_treasure(self,speed):
+        frequcence = 70
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor1 = ev3.InfraredSensor()
+            distance = sensor1.proximity
+            print(distance)
+            self.sound.beep_at_tone(50, int(frequcence)).wait()
+            frequcence = frequcence + 50
+            if distance <= 1.5:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
+        print('Open treasure chest.')
+
+
+    def m2_extra_Find(self,speed):
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            sensor = ev3.ColorSensor()
+            num = int(sensor.color)
+            if num != 1:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
+        if num == 6:
+            self.sound.speak_phrase('Find a treasure chest')
+        else:
+            self.sound.beep_for_n_times(1)
+            self.sound.speak_phrase('No treasure')
+
+
 
 ###############################################################################
 #    ArmAndClawv
@@ -482,10 +500,6 @@ class SoundSystem(object):
     def speak_phrase(self, word):
         speaker = SpeechMaker()
         speaker.speak(word)
-
-    def beep_speed(self, duration):
-        self.beeper.beep().wait()
-        time.sleep(duration)
 
 ###############################################################################
 #    LEDSystem
@@ -976,9 +990,6 @@ class ToneMaker(object):
         """
         return self._tone_maker.tone(tones)
 
-    def play_sound_file(self, n):
-
-        return self._tone_maker.play(n)
 
 ###############################################################################
 # SpeechMaker

@@ -11,7 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
-import liao
+import m2_Extra
 
 
 
@@ -31,6 +31,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
+    root.configure(bg='blue')
     root.title("CSSE120 Capstone Project, Winter 2018-19")
 
     # -------------------------------------------------------------------------
@@ -41,7 +42,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame,control_frame, sound_frame, drive_frame, liao_frame = get_shared_frames(main_frame,mqtt_sender)
+    liao_frame = get_shared_frames(main_frame,mqtt_sender)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -50,7 +51,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame,liao_frame)
+    grid_frames(liao_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -59,20 +60,10 @@ def main():
 
 
 def get_shared_frames(main_frame, mqtt_sender):
-    teleop_frame = shared_gui.get_teleoperation_frame(main_frame , mqtt_sender)
-    arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
-    control_fram = shared_gui.get_control_frame(main_frame,mqtt_sender)
-    sound_frame = shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
-    drive_frame = shared_gui.get_drivesystem_frame(main_frame,mqtt_sender)
-    liao_frame = liao.get_teleoperation_frame(main_frame,mqtt_sender)
-    return teleop_frame, arm_frame, control_fram, sound_frame, drive_frame, liao_frame
+    liao_frame = m2_Extra.get_teleoperation_frame(main_frame, mqtt_sender)
+    return liao_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, sound_frame, drive_frame,liao_frame):
-    teleop_frame.grid(row= 0, column = 0)
-    arm_frame.grid(row= 0, column = 1)
-    control_frame.grid(row= 1, column = 1)
-    sound_frame.grid(row= 3, column = 0)
-    drive_frame.grid(row= 3, column = 1)
+def grid_frames(liao_frame):
     liao_frame.grid(row= 4, column = 1)
 
 # -----------------------------------------------------------------------------

@@ -2,7 +2,7 @@
   Capstone Project.  Code to run on the EV3 robot (NOT on a laptop).
   This code is the delegate for handling messages from the shared GUI.
 
-  Author:  Your professors (for the framework)1
+  Author:  Your professors (for the framework)
     and Josiah Hasegawa, Zeyu Liao, Yifan Dai. hellow
   Winter term, 2018-2019.1
 """
@@ -92,14 +92,9 @@ class Reciver(object):
     def until_color(self,speed,color):
         self.robot.drive_system.go_straight_until_color_is(int(color),int(speed))
 
-#test code for josiah, do not change this please
-    def whale(self, n, k):
-        self.robot.drive_system.whale(n, k)
+    def m2_Extra_hunting(self,speed):
+        self.robot.drive_system.m2_extra_treasure(speed)
+        self.robot.arm_and_claw.raise_arm()
+        self.robot.drive_system.m2_extra_Find(speed)
 
-    def skyrim(self, n):
-        self.robot.drive_system.skyrim(n)
-        print('the things i do for memes')
 
-    def lotr(self, n):
-        self.robot.drive_system.lotr(n)
-        print("must...meme...")

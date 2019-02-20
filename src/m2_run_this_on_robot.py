@@ -32,6 +32,11 @@ def real_thing():
 
 def anything():
     robot = rosebot.RoseBot()
+    pixy = robot.sensor_system.camera
+    print('1')
+    blob = pixy.get_biggest_blob()
+    Area = blob.width * blob.height
+    print(Area)
 
 
 # def something():
