@@ -92,7 +92,9 @@ def get_guard_frame(window, mqtt_sender):
     skyrim_entry2 = ttk.Entry(frame, width=5)
     skyrim_entry3 = ttk.Entry(frame, width=5)
     skyrim_label2 = ttk.Label(frame, text="speed(-100-100)")
+    skyrim_entry2.insert(0, "40")
     skyrim_label3 = ttk.Label(frame, text="color(0-7)")
+    skyrim_entry3.insert(0, "5")
     #grid widgits
     frame_label.grid(row=0, column=1)
     lotr_label.grid(row=3, column=0)

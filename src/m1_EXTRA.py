@@ -43,11 +43,11 @@ def skyrim(t, k, m):
             "I took an", "arrow in the knee"]
     while True:
         c = robot.sensor_system.color_sensor.get_color()
-        robot.sensor_system.color_sensor.get_color_as_name()
+        robot.sensor_system.color_sensor.get_color()
         if c == 4:
             break
         if c == m:
-            robot.sound_system.beep_for_n_times(m)
+            robot.sound_system.beep_for_n_times(m+1)
             break
 
         rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
@@ -61,7 +61,7 @@ def skyrim(t, k, m):
             time.sleep(5)
 
         if rng1<= 8:
-            robot.drive_system.go(-20, -20)
+            robot.drive_system.go(-100, -100)
             robot.sound_system.speak_phrase("That is wrong")
             time.sleep(.75)
         if rng2 <= -50:
@@ -89,7 +89,7 @@ def lotr(n):
     while True:
         time.sleep(.5)
 
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 15:
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()<= 12:
             robot.drive_system.go(n, n)
             break
 
