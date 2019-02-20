@@ -57,8 +57,10 @@ def skyrim(t, k, m):
             robot.drive_system.stop()
             for k in range(len(list)):
                 robot.sound_system.speak_phrase(list[k])
-                time.sleep(1.4)
-            time.sleep(5)
+                time.sleep(1.5)
+            robot.drive_system.go(40, 40)
+            time.sleep(.6)
+            robot.drive_system.stop()
 
         if rng1<= 8:
             robot.drive_system.go(-100, -100)
