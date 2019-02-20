@@ -2,7 +2,7 @@
 # Author: Josiah Hasegawa
 import rosebot
 import time
-
+import random
 def whale(n, k):
     robot = rosebot.RoseBot()
     sensor = robot.sensor_system.ir_proximity_sensor
@@ -33,33 +33,47 @@ def whale(n, k):
             break
     robot.drive_system.stop()
 
-def skyrim():
+def guard_quotes():
+    list = []
+
+def skyrim(t):
     robot = rosebot.RoseBot()
     f = 0
     while robot.sensor_system.color_sensor.get_color() != 4:
         rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
-        rng2 = robot.drive_system.right_motor.get_position()
-        rng3 = robot.drive_system.left_motor.get_position()
+        rng2 = random.randint(-100,100)
+
 
         if robot.sensor_system.touch_sensor.is_pressed():
-            robot.tone_maker.play_sound_file()
+            robot.drive_system.stop()
+            # robot.tone_maker.play_sound_file()
             if f < 7:
                 f = f + 1
             else:
                 f = f - 7
-
-        if (rng1 + rng2 + rng3) % 2==0:
-            robot.drive_system.go()
-            time.sleep()
+        if rng2 <= -50:
+            robot.drive_system.go(rng2, rng2)
+            time.sleep(t)
             robot.drive_system.stop()
-        elif (rng1 + rng2 + rng3) % 2 !=0:
-            robot.drive_system.go()
-            time.sleep()
+        elif rng2>=50:
+            robot.drive_system.go(rng2, rng2)
+            time.sleep(t)
+            robot.drive_system.stop()
+        elif rng2 >= 0:
+            robot.drive_system.go(rng2, -rng2)
+            time.sleep(t)
+            robot.drive_system.stop()
+        elif rng2 <=0:
+            robot.drive_system.go(rng2, -1*rng2)
+            time.sleep(t)
             robot.drive_system.stop()
 
+        robot.drive_system.go(-20, -20)
+        time.sleep(.75)
 
-def guard_quotes():
-    list = []
+
+
+
 def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
