@@ -74,11 +74,11 @@ def skyrim(t, k, m):
             robot.drive_system.stop()
         elif rng2 >= 0:
             robot.drive_system.go(k, -k)
-            time.sleep(t)
+            time.sleep(t*1.25)
             robot.drive_system.stop()
         elif rng2 <=0:
             robot.drive_system.go(-k, k)
-            time.sleep(t)
+            time.sleep(t*1.25)
             robot.drive_system.stop()
 
 def lotr(n):
