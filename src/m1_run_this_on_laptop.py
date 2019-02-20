@@ -89,6 +89,10 @@ def get_guard_frame(window, mqtt_sender):
     lotr_entry.insert(0, '30')
     skyrim_entry = ttk.Entry(frame, width=5)
     skyrim_entry.insert(0, '.5')
+    skyrim_entry2 = ttk.Entry(frame, width=5)
+    skyrim_entry3 = ttk.Entry(frame, width=5)
+    skyrim_label2 = ttk.Label(frame, text="speed(-100-100)")
+    skyrim_label3 = ttk.Label(frame, text="color(0-7)")
     #grid widgits
     frame_label.grid(row=0, column=1)
     lotr_label.grid(row=3, column=0)
@@ -97,10 +101,13 @@ def get_guard_frame(window, mqtt_sender):
     lotr_button.grid(row=3, column=1)
     skyrim_button.grid(row=4, column=1)
     skyrim_entry.grid(row=4, column=2)
-
+    skyrim_entry2.grid(row=5, column=2)
+    skyrim_entry3.grid(row=6, column=2)
+    skyrim_label2.grid(row=5, column=1)
+    skyrim_label3.grid(row=6, column=1)
     #button callbacks
     lotr_button["command"]= lambda: shared_gui.handle_lotr(lotr_entry, mqtt_sender)
-    skyrim_button["command"] = lambda: shared_gui.handle_skyrim(skyrim_entry, mqtt_sender)
+    skyrim_button["command"] = lambda: shared_gui.handle_skyrim(skyrim_entry, skyrim_entry2, skyrim_entry3, mqtt_sender)
 
     return frame
 

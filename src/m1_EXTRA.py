@@ -3,6 +3,7 @@
 import rosebot
 import time
 import random
+
 def whale(n, k):
     robot = rosebot.RoseBot()
     sensor = robot.sensor_system.ir_proximity_sensor
@@ -33,50 +34,50 @@ def whale(n, k):
             break
     robot.drive_system.stop()
 
-def guard_quotes():
-    list = []
-
-def skyrim(t):
+def skyrim(t, k, m):
     t = float(t)
+    k = float(k)
+    m = float(m)
     robot = rosebot.RoseBot()
-    f = 0
-
+    list = ["I used to", "be an adventurer", "like you", "but then",
+            "I took an", "arrow in the knee"]
     while True:
         c = robot.sensor_system.color_sensor.get_color()
+        robot.sensor_system.color_sensor.get_color_as_name()
         if c == 4:
             break
-        if c == 5:
-            robot.sound_system.beep_for_n_times(5)
+        if c == m:
+            robot.sound_system.beep_for_n_times(m)
+            break
 
         rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
         rng2 = random.randint(-100,100)
 
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
-            # robot.tone_maker.play_sound_file()
+            for k in range(len(list)):
+                robot.sound_system.speak_phrase(list[k])
+                time.sleep(1.4)
             time.sleep(5)
-            if f < 7:
-                f = f + 1
-            else:
-                f = f - 7
+
         if rng1<= 8:
             robot.drive_system.go(-20, -20)
             robot.sound_system.speak_phrase("That is wrong")
             time.sleep(.75)
         if rng2 <= -50:
-            robot.drive_system.go(rng2, rng2)
+            robot.drive_system.go(-k, -k)
             time.sleep(t)
             robot.drive_system.stop()
         elif rng2>=50:
-            robot.drive_system.go(rng2, rng2)
+            robot.drive_system.go(k, k)
             time.sleep(t)
             robot.drive_system.stop()
         elif rng2 >= 0:
-            robot.drive_system.go(rng2, -rng2)
+            robot.drive_system.go(k, -k)
             time.sleep(t)
             robot.drive_system.stop()
         elif rng2 <=0:
-            robot.drive_system.go(rng2, -1*rng2)
+            robot.drive_system.go(-k, k)
             time.sleep(t)
             robot.drive_system.stop()
 
