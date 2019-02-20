@@ -350,7 +350,7 @@ class DriveSystem(object):
         self.right_motor.turn_off()
         self.led_left.set_color_by_fractions(0, 1)
         self.led_right.set_color_by_fractions(0, 1)
-    
+    #functions that Josiahs bot uses put here for convinience
     def whale(self, n, k):
         m1_EXTRA.whale(n, k)
 

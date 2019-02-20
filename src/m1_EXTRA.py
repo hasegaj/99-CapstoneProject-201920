@@ -4,6 +4,7 @@ import rosebot
 import time
 import random
 
+#part 9 code that flashes and picks up object
 def whale(n, k):
     robot = rosebot.RoseBot()
     sensor = robot.sensor_system.ir_proximity_sensor
@@ -33,7 +34,8 @@ def whale(n, k):
             right.set_color_by_name((0, 1))
             break
     robot.drive_system.stop()
-
+#skyrim guard, moves around randomly and says stuff when pressed, stops on certain colors
+#and just does some random/unexpected things
 def skyrim(t, k, m):
     t = float(t)
     k = float(k)
@@ -82,7 +84,8 @@ def skyrim(t, k, m):
             robot.drive_system.go(-k, k)
             time.sleep(t*1.25)
             robot.drive_system.stop()
-
+# waits till something gets close and then drives up to it and says
+# you shall not pass. added more for memes than anything else
 def lotr(n):
     robot = rosebot.RoseBot()
     speak = rosebot.SpeechMaker()
@@ -103,10 +106,4 @@ def lotr(n):
 
     speak.speak('You shall not pass')
     time.sleep(1)
-
-
-def touch_sensor_test():
-    robot = rosebot.RoseBot()
-    if robot.sensor_system.touch_sensor.is_pressed():
-        return 'boop'
 

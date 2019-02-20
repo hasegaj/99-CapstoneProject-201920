@@ -12,7 +12,7 @@ import tkinter
 from tkinter import ttk
 import shared_gui
 
-
+#makes the team function window, but it's my unique setup
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -60,7 +60,7 @@ def main():
     # -------------------------------------------------------------------------
 
     root.mainloop()
-
+#creates the sprint 3 window for thing to be placed in it and places them
 def sprint_3_GUI():
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
@@ -74,7 +74,7 @@ def sprint_3_GUI():
     grid_2(guard_frame)
 
     root.mainloop()
-
+#makes the frame for sprint 3
 def get_guard_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=5, borderwidth=5, relief="ridge")
     frame.grid()
@@ -113,7 +113,7 @@ def get_guard_frame(window, mqtt_sender):
     skyrim_button["command"] = lambda: shared_gui.handle_skyrim(skyrim_entry, skyrim_entry2, skyrim_entry3, mqtt_sender)
 
     return frame
-
+#creates frame that tests part 9
 def get_object_while_blinking(window, mqtt_sender):
     frame = ttk.Frame(window, padding=1, borderwidth=4, relief="ridge")
     frame.grid()
@@ -131,7 +131,7 @@ def get_object_while_blinking(window, mqtt_sender):
 
     button["command"]= lambda: shared_gui.handle_ugh(entry, entry2, mqtt_sender)
     return frame
-
+# returns the frames from shared gui and stuff
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
@@ -141,12 +141,12 @@ def get_shared_frames(main_frame, mqtt_sender):
     new_frame = get_object_while_blinking(main_frame, mqtt_sender)
 
     return teleop_frame, arm_frame, control_frame, test_frame, sound_frame, new_frame
-
+#places the frame for sprint 3
 def get_frame_2(main_frame, mqtt_sender):
     guard_frame = get_guard_frame(main_frame, mqtt_sender)
 
     return guard_frame
-
+#places the frames on window
 def grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame, new_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
@@ -157,7 +157,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame,
 
 def grid_2(guard_frame):
     guard_frame.grid(row=1, column=1)
-
+#the first window that shows up
 def title_window():
 
     root = tkinter.Tk()
@@ -172,7 +172,7 @@ def title_window():
     this.grid()
 
     root.mainloop()
-
+#allows for the other windows to be called and stay up for use later
 def get_this_frame(window):
     frame = ttk.Frame(window)
     frame.grid()
@@ -186,6 +186,5 @@ def get_this_frame(window):
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
-#main()
-#sprint_3_GUI()
+
 title_window()

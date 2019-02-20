@@ -450,7 +450,7 @@ def straight_until_color_is(speed,color, mqtt_sender):
     mqtt_sender.send_message('until_color',[speed.get(),color.get()])
 
 #buttons for josiah's project
-
+#ugh is part 9, lotr is you shall not pass, and skyrim is self-explanitory
 def handle_ugh(n, k, mqtt_sender):
     print('ugh')
     mqtt_sender.send_message('whale', [n, k])

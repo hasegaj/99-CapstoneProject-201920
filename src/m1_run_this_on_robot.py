@@ -9,7 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot as rec
-
+#sets up mqtt stuff, the same as everyone elses
 def main():
     """
     This code, which must run on the EV3 ROBOT:
