@@ -31,11 +31,11 @@ def main():
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
     root.title("whatever title i want")
-
+    root.configure(bg="#ff0088")
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    main_frame = ttk.Frame(root, padding=12, borderwidth=6, relief='groove')
+    main_frame = ttk.Frame(root, padding=1, borderwidth=6, relief='groove')
     main_frame.grid()
 
     # -------------------------------------------------------------------------
@@ -66,9 +66,10 @@ def sprint_3_GUI():
     mqtt_sender.connect_to_ev3()
     root = tkinter.Tk()
     root.title("some title")
-
-    main_frame = ttk.Frame(root, padding=12, borderwidth=6, relief='groove')
-    main_frame.grid()
+    root.geometry('400x300')
+    root.configure(bg="#0099cd")
+    main_frame = ttk.Frame(root, padding=1, borderwidth=10, relief='groove')
+    main_frame.pack()
     guard_frame = get_guard_frame(main_frame, mqtt_sender)
     grid_2(guard_frame)
 
@@ -114,7 +115,7 @@ def get_guard_frame(window, mqtt_sender):
     return frame
 
 def get_object_while_blinking(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=3, borderwidth=4, relief="ridge")
+    frame = ttk.Frame(window, padding=1, borderwidth=4, relief="ridge")
     frame.grid()
 
     label = ttk.Label(frame, text="pick up object while flashing")
@@ -152,12 +153,39 @@ def grid_frames(teleop_frame, arm_frame, control_frame, test_frame, sound_frame,
     control_frame.grid(row=2, column=0)
     test_frame.grid(row=0, column=1)
     sound_frame.grid(row=1, column=1)
-    new_frame.grid(row=3, column=2)
+    new_frame.grid(row=2, column=1)
 
 def grid_2(guard_frame):
     guard_frame.grid(row=1, column=1)
+
+def title_window():
+
+    root = tkinter.Tk()
+    root.title("Starting GUI")
+    root.geometry('400x200+500+300')
+    root.configure(bg="#0099cd")
+    main_frame = ttk.Frame(root, padding=1, borderwidth=15, relief='groove')
+
+    main_frame.pack()
+
+    this = get_this_frame(main_frame)
+    this.grid()
+
+    root.mainloop()
+
+def get_this_frame(window):
+    frame = ttk.Frame(window)
+    frame.grid()
+    button1 = ttk.Button(frame, text="team window")
+    button2 = ttk.Button(frame, text="sprint 3 window")
+    button1["command"] = lambda: main()
+    button2["command"] = lambda: sprint_3_GUI()
+    button1.grid()
+    button2.grid()
+    return frame
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
-main()
-sprint_3_GUI()
+#main()
+#sprint_3_GUI()
+title_window()
