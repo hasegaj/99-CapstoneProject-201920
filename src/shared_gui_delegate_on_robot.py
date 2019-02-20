@@ -96,8 +96,8 @@ class Reciver(object):
     def whale(self, n, k):
         self.robot.drive_system.whale(n, k)
 
-    def skyrim(self):
-        self.robot.drive_system.skyrim()
+    def skyrim(self, n):
+        self.robot.drive_system.skyrim(n)
         print('the things i do for memes')
 
     def lotr(self, n):

@@ -455,9 +455,9 @@ def handle_ugh(n, k, mqtt_sender):
     print('ugh')
     mqtt_sender.send_message('whale', [n, k])
 
-def handle_skyrim(mqtt_sender):
+def handle_skyrim(n, mqtt_sender):
     print('merp')
-    mqtt_sender.send_message('skyrim', )
+    mqtt_sender.send_message('skyrim', [n.get()])
 
 def handle_lotr(n, mqtt_sender):
     print('meh')

@@ -37,20 +37,32 @@ def guard_quotes():
     list = []
 
 def skyrim(t):
+    t = float(t)
     robot = rosebot.RoseBot()
     f = 0
-    while robot.sensor_system.color_sensor.get_color() != 4:
+
+    while True:
+        c = robot.sensor_system.color_sensor.get_color()
+        if c == 4:
+            break
+        if c == 5:
+            robot.sound_system.beep_for_n_times(5)
+
         rng1 = robot.sensor_system.ir_proximity_sensor.get_distance()
         rng2 = random.randint(-100,100)
-
 
         if robot.sensor_system.touch_sensor.is_pressed():
             robot.drive_system.stop()
             # robot.tone_maker.play_sound_file()
+            time.sleep(5)
             if f < 7:
                 f = f + 1
             else:
                 f = f - 7
+        if rng1<= 8:
+            robot.drive_system.go(-20, -20)
+            robot.sound_system.speak_phrase("That is wrong")
+            time.sleep(.75)
         if rng2 <= -50:
             robot.drive_system.go(rng2, rng2)
             time.sleep(t)
@@ -67,12 +79,6 @@ def skyrim(t):
             robot.drive_system.go(rng2, -1*rng2)
             time.sleep(t)
             robot.drive_system.stop()
-
-        robot.drive_system.go(-20, -20)
-        time.sleep(.75)
-
-
-
 
 def lotr(n):
     robot = rosebot.RoseBot()
