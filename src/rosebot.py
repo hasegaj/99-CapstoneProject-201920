@@ -342,7 +342,6 @@ class DriveSystem(object):
         self.left_motor.turn_off()
         self.right_motor.turn_off()
 
-
     def m2_extra_treasure(self,speed):
         frequcence = 70
         self.left_motor.turn_on(speed)

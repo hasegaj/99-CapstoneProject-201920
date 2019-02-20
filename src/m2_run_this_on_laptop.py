@@ -58,7 +58,6 @@ def main():
     # -------------------------------------------------------------------------
     root.mainloop()
 
-
 def get_shared_frames(main_frame, mqtt_sender):
     liao_frame = m2_Extra.get_teleoperation_frame(main_frame, mqtt_sender)
     return liao_frame
